@@ -2,21 +2,33 @@
 
 <CascadingValue Name="@nameof(MainLayout)" Value="this">
     <MApp>
-        <MNavigationDrawer App
-                           Class="px-2 py-6"
-                           MiniVariant
-                           Permanent
-                           Floating
-                           MiniVariantWidth="300">
-           <FileTree></FileTree>
-        </MNavigationDrawer>
+        <MCard Class="overflow-hidden">
+            <MAppBar ElevateOnScroll Absolute ScrollTarget="#scrolling-sheet-2">
 
-        <MMain>
-            <MContainer Fluid>
-                <MErrorHandler>
-                    @Body
-                </MErrorHandler>
-            </MContainer>
-        </MMain>
+                <MButton Class="ma-2" Text OnClick="OnRetreat">
+                    <MIcon Small>
+                        mdi-arrow-left
+                    </MIcon>
+                </MButton>
+
+                <MTextField OnEnter="OnPageSearch" Style="height:40px;width:60%;" @bind-Value=Root Label="路径" Outlined Dense>
+                </MTextField>
+                <MTextField @bind-Value=_search  OnEnter="OnSearch" Style="height:40px;margin-left: 10px;width:30%" TValue="string" Label="搜索" Outlined Dense>
+                </MTextField>
+                <MSpacer></MSpacer>
+
+                <MButton OnClick="OnSearch" Icon>
+                    <MIcon>mdi-magnify</MIcon>
+                </MButton>
+
+            </MAppBar>
+            <MSheet Class="overflow-y-auto" MaxHeight="@("100vh")" Id="scrolling-sheet-2">
+                <MContainer Style="height:100vh">
+                    <MErrorHandler>
+                        @Body
+                    </MErrorHandler>
+                </MContainer>
+            </MSheet>
+        </MCard>
     </MApp>
 </CascadingValue>

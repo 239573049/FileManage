@@ -1,2 +1,52 @@
+@using FileManage.Core;
+
 @page "/"
 
+<div style="margin-top: 60px;">
+    @foreach (var item in MainLayout.items)
+    {
+        <div class="file-list" @onclick="()=>OnClick(item)">
+            <MIcon Color="#f9cf01" Size="80">@(item.IsDirectory ? "mdi-folder" : "mdi-file")</MIcon>
+                <div class="file-list-name">
+                    @item.Name
+                </div>
+            </div>
+    }
+</div>
+
+@code {
+    [CascadingParameter(Name = nameof(MainLayout))]
+    private MainLayout MainLayout { get; set; }
+
+
+    private void OnClick(FileTreeModule module)
+    {
+        if (module.IsDirectory)
+        {
+            MainLayout?.OnClick?.Invoke(module);
+            MainLayout.items = MainLayout.LoadTree(module.FullName);
+        }
+    }
+
+}
+
+<style>
+    .file-list-name {
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .file-list {
+        transition: 0.5s;
+        float: left;
+        margin: 2px;
+        height: 120px;
+        width: 80px;
+        border-radius: 5px;
+    }
+
+        .file-list:hover {
+            transition:0.5s;
+            background-color: #afaeae;
+        }
+</style>
