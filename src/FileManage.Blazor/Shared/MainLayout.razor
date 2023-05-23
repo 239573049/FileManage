@@ -1,0 +1,22 @@
+﻿@inherits LayoutComponentBase
+
+<CascadingValue Name="@nameof(MainLayout)" Value="this">
+    <MApp>
+        <MNavigationDrawer App
+                           Class="px-2 py-6"
+                           MiniVariant
+                           Permanent
+                           Floating
+                           MiniVariantWidth="300">
+           <FileTree></FileTree>
+        </MNavigationDrawer>
+
+        <MMain>
+            <MContainer Fluid>
+                <MErrorHandler>
+                    @Body
+                </MErrorHandler>
+            </MContainer>
+        </MMain>
+    </MApp>
+</CascadingValue>

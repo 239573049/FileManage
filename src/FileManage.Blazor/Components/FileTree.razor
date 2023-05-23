@@ -1,0 +1,29 @@
+﻿@using FileManage.Core
+<MTreeview @bind-Open="@initiallyOpen"
+           Items="items"
+           TKey="string"
+           TItem="FileTreeModule"
+           Activatable
+            LoadChildren="LoadItem"
+            ItemKey="u => u.Name"
+            ItemChildren="u => u.Children"
+            ItemText="u => u.Name"
+           OpenOnClick>
+    <PrependContent>
+        @if (context.Item.IsDirectory)
+        {
+            <MIcon>
+                @(context.Open ? "mdi-folder-open" : "mdi-folder")
+            </MIcon>
+        }
+        else
+        {
+            @if (!string.IsNullOrEmpty(context.Item.Icon))
+            {
+                <MIcon>
+                    @files[context.Item.Icon]
+                </MIcon>
+            }
+        }
+    </PrependContent>
+</MTreeview>
